@@ -23,12 +23,8 @@ const (
 // IDENT identifiers e.g foo, bar, add.
 // INT integer literals e.g 456
 const (
-	IDENT  = "IDENT"
-	INT    = "INT"
-	LPAREN = "("
-	RPAREN = ")"
-	LBRACE = "{"
-	RBRACE = "}"
+	IDENT = "IDENT"
+	INT   = "INT"
 )
 
 // Operators
@@ -41,6 +37,10 @@ const (
 const (
 	COMMA     = ","
 	SEMICOLON = ";"
+	LPAREN    = "("
+	RPAREN    = ")"
+	LBRACE    = "{"
+	RBRACE    = "}"
 )
 
 // Keywords
