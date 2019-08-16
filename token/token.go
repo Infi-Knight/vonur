@@ -20,11 +20,11 @@ const (
 	EOF     = "EOF"
 )
 
-// IDENT identifiers e.g foo, bar, add.
+// IDENTIFIER identifiers e.g foo, bar, add.
 // INT integer literals e.g 456
 const (
-	IDENT = "IDENT"
-	INT   = "INT"
+	IDENTIFIER = "IDENTIFIER"
+	INT        = "INT"
 )
 
 // Operators
