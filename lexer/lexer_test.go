@@ -6,21 +6,55 @@ import (
 )
 
 func TestNextToken(t *testing.T) {
-	input := `=+(){},;`
+	input := `
+        let x = 10;
+        let y = 15;
+        let add = fn(i, j) {
+            i+j;
+        };
+        let result = add(x, y);
+    `
 
 	tests := []struct {
 		expectedType    token.TokenType
 		expectedLiteral string
 	}{
+		{token.LET, "let"},
+		{token.IDENTIFIER, "x"},
 		{token.ASSIGN, "="},
-		{token.PLUS, "+"},
+		{token.INT, "10"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENTIFIER, "y"},
+		{token.ASSIGN, "="},
+		{token.INT, "15"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENTIFIER, "add"},
+		{token.ASSIGN, "="},
+		{token.FUNCTION, "fn"},
 		{token.LPAREN, "("},
+		{token.IDENTIFIER, "i"},
+		{token.COMMA, ","},
+		{token.IDENTIFIER, "j"},
 		{token.RPAREN, ")"},
 		{token.LBRACE, "{"},
-		{token.RBRACE, "}"},
-		{token.COMMA, ","},
+		{token.IDENTIFIER, "i"},
+		{token.PLUS, "+"},
+		{token.IDENTIFIER, "j"},
 		{token.SEMICOLON, ";"},
-		{token.EOF, ""},
+		{token.RBRACE, "}"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENTIFIER, "result"},
+		{token.ASSIGN, "="},
+		{token.IDENTIFIER, "add"},
+		{token.LBRACE, "("},
+		{token.IDENTIFIER, "x"},
+		{token.COMMA, ","},
+		{token.IDENTIFIER, "y"},
+		{token.RPAREN, ")"},
+		{token.SEMICOLON, ";"},
 	}
 
 	// Create a lexer for our input string
