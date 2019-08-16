@@ -10,8 +10,8 @@ type Lexer struct {
 	ch           byte // current char under examination
 }
 
-// New creates and initialises a Lexer and returns a reference to it
-func New(input string) *Lexer {
+// NewLexer creates and initialises a Lexer and returns a reference to it
+func NewLexer(input string) *Lexer {
 	l := &Lexer{input: input}
 	l.readChar()
 	return l
