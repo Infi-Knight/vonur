@@ -21,8 +21,9 @@ func NewLexer(input string) *Lexer {
 // out position to the next character. Our lexer does not support
 // full range of Unicode code points
 func (l *Lexer) readChar() {
-	//
 	if l.readPosition >= len(l.input) {
+		// “ASCII code for the "NULL" character and signifies either
+		// "we haven't read anything yet" or "end of file" for us. ”
 		l.ch = 0
 	} else {
 		l.ch = l.input[l.readPosition]
@@ -31,11 +32,28 @@ func (l *Lexer) readChar() {
 	l.readPosition++
 }
 
+// readIdentifier reads in an identifier and advances our lexer's positions
+// until it encounters a non-letter-character.
+func (l *Lexer) readIdentifier() string {
+	position := l.position
+	for isLetter(l.ch) {
+		l.readChar()
+	}
+	return l.input[position:l.position]
+}
+
 // NextToken returns the next token from the input sequence
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
 	switch l.ch {
+	default:
+		if isLetter(l.ch) {
+			tok.Literal = l.readIdentifier()
+		} else {
+			tok = newToken(token.ILLEGAL, l.ch)
+		}
+		return tok
 	case '=':
 		tok = newToken(token.ASSIGN, l.ch)
 	case '+':
@@ -62,4 +80,12 @@ func (l *Lexer) NextToken() token.Token {
 
 func newToken(tokenType token.TokenType, ch byte) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
+}
+
+// isLetter helper function just checks whether the given argument is a letter
+// In our case it contains the check ch == '_', which means that we'll treat
+// _ as a letter and allow it in identifiers and keywords.
+// That means we can use variable names like foo_bar.
+func isLetter(ch byte) bool {
+	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }
