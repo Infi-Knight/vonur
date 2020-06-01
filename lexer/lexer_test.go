@@ -1,8 +1,9 @@
 package lexer
 
 import (
-	"github.com/Infi-Knight/vonur/token"
 	"testing"
+
+	"github.com/Infi-Knight/vonur/token"
 )
 
 func TestNextToken(t *testing.T) {
@@ -49,7 +50,7 @@ func TestNextToken(t *testing.T) {
 		{token.IDENTIFIER, "result"},
 		{token.ASSIGN, "="},
 		{token.IDENTIFIER, "add"},
-		{token.LBRACE, "("},
+		{token.LPAREN, "("},
 		{token.IDENTIFIER, "x"},
 		{token.COMMA, ","},
 		{token.IDENTIFIER, "y"},
